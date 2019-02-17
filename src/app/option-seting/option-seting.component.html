@@ -1,0 +1,19 @@
+<div style="text-align:center">
+  Configuración de votación
+</div>
+<div>
+  <label>Cantidad de optiones en la votación:
+    <input type="number" #optionsNumber />
+  </label>
+  <button (click)="setOptionsNumber(optionsNumber.value)">
+    Continuar
+  </button>
+  {{options}}
+  <div *ngIf="options && options.length > 0">
+    <div *ngFor="let option of options">
+      <p>{{option.id}}</p>
+    </div>
+
+
+  </div>
+</div>
