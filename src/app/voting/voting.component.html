@@ -1,0 +1,16 @@
+<div>
+  <p>Eliga su orden de opciones</p>
+    <div *ngFor="let option of options; index as i">
+        <p *ngIf="!option.selected" id="option.id" (click)="saveVote(option)">{{option.id}}</p>
+    </div>
+
+    <button [disabled]="!showVote" (click)="commitVote(option)">Votar</button>
+    <button (click)="resetVote(option)">limpiar</button>
+  <div *ngFor="let vote of votes">
+    <div>{{vote}}</div>
+  </div>
+
+  <div *ngFor="let vote of generalVote">
+    <div>{{vote.votes}}</div>
+  </div>
+</div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {VotingService} from "../voting.service";
 
 @Component({
   selector: 'app-option-seting',
@@ -8,12 +9,11 @@ import { Component, OnInit } from '@angular/core';
 export class OptionSetingComponent implements OnInit {
   options = [];
 
-  constructor() { }
+  constructor(private votingService: VotingService) { }
 
-  setOptionsNumber(optionNumber:number): void {
-    for (var i = 0; i < optionNumber; i++) {
-      this.options.push({id:i+1,glosa:''});
-    }
+  setOptions(optionNumber:number): void {
+    this.votingService.setOptions(optionNumber);
+    this.options = this.votingService.optionsList;
   }
 
   ngOnInit() {

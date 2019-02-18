@@ -5,12 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { OptionSetingComponent } from './option-seting/option-seting.component';
 import { HomeComponent } from './home/home.component';
+import { VotingComponent } from './voting/voting.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     OptionSetingComponent,
-    HomeComponent
+    HomeComponent,
+    VotingComponent
   ],
   imports: [
     BrowserModule,
