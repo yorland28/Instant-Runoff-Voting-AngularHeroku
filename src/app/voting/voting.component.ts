@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {VotingService} from "../voting.service";
-import {forEach} from "@angular/router/src/utils/collection";
 
 @Component({
   selector: 'app-voting',
