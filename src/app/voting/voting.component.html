@@ -4,8 +4,8 @@
         <p *ngIf="!option.selected" id="option.id" (click)="saveVote(option)">{{option.id}}</p>
     </div>
 
-    <button [disabled]="!showVote" (click)="commitVote(option)">Votar</button>
-    <button (click)="resetVote(option)">limpiar</button>
+    <button [disabled]="!showVote" (click)="commitVote()">Votar</button>
+    <button (click)="resetVote()">limpiar</button>
   <div *ngFor="let vote of votes">
     <div>{{vote}}</div>
   </div>
