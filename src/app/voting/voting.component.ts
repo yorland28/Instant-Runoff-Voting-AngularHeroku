@@ -11,6 +11,7 @@ export class VotingComponent implements OnInit {
   votes = [];
   generalVote= [];
   showVote = false;
+  showVoteEnd = false;
 
   constructor(private votingService: VotingService) { }
 
@@ -26,6 +27,9 @@ export class VotingComponent implements OnInit {
   commitVote():void{
     this.votingService.saveVotes(this.votes);
     this.generalVote = this.votingService.votesSelected;
+    if(this.generalVote.length > 1){
+      this.showVoteEnd = true;
+    }
     this.resetVote();
   }
 
@@ -35,6 +39,16 @@ export class VotingComponent implements OnInit {
     for(let option of this.options){
       option.selected = false;
     }
+  }
+
+  resetVoting(){
+    this.options = [];
+    this.resetVote();
+
+  }
+
+  finishVoting (){
+    this.votingService.setVotingResult();
   }
 
   ngOnInit() {

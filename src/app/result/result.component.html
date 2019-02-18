@@ -1,0 +1,17 @@
+<p>
+  Resultado
+</p>
+
+<div>Votos totales: {{totalVotes}}</div>
+
+<div *ngFor="let round of roundsResult">
+  <p>{{round.round}}</p>
+  <div *ngFor="let oneResult of round.result">
+    <div>{{oneResult.option.id}} --> {{oneResult.voteCount}}</div>
+  </div>
+</div>
+
+<a routerLink="/seting">
+  Nueva Dinamica
+</a>
+

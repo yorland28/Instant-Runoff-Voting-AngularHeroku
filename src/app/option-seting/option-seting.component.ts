@@ -17,6 +17,8 @@ export class OptionSetingComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.options = [];
+    this.votingService.resetVoting();
   }
 
 }
