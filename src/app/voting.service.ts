@@ -12,6 +12,7 @@ export class VotingService {
   public votesCount = 0;
   public rounds = [];
   roundCount = 0;
+  public totalbudget = 0;
 
   resetVoting(){
     this.votesSelected = [];
@@ -23,7 +24,17 @@ export class VotingService {
   setOptions (optionNumber : number) {
     this.optionsList = [];
     for (var i = 0; i < optionNumber; i++) {
-      this.optionsList.push({id:this.alphabet[i],glosa:''});
+      this.optionsList.push({id:this.alphabet[i],price:""});
+    }
+  }
+
+  setOptionPrice(optionUpdated){
+
+    for(let option of this.optionsList){
+      if(option.id === optionUpdated.id){
+        option.id = optionUpdated.id;
+        option.price = optionUpdated.price;
+      }
     }
   }
 
@@ -56,13 +67,17 @@ export class VotingService {
       }
       end = this.processResult(result, major, minor);
     }
+
   }
 
   processResult(list : string [],major,minor) : boolean{
+    var winOption = [];
     this.roundCount ++;
     this.rounds.push({round:this.roundCount,result:list});
       if((major.count > this.votesCount/2) || major.count === minor.count || major.count <1){
+        winOption = major.option;
         console.log(this.rounds);
+        this.restTotalbudget(winOption);
         return true;
       }
       else if (minor && minor.option){
@@ -73,6 +88,9 @@ export class VotingService {
         }
         return false;
       }
+  }
+
+  restTotalbudget(winVote){
 
   }
 

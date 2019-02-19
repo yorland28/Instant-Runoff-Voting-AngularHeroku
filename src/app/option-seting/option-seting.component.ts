@@ -8,6 +8,8 @@ import {VotingService} from "../voting.service";
 })
 export class OptionSetingComponent implements OnInit {
   options = [];
+  budget = 0;
+  showNext;
 
   constructor(private votingService: VotingService) { }
 
@@ -16,8 +18,27 @@ export class OptionSetingComponent implements OnInit {
     this.options = this.votingService.optionsList;
   }
 
+  setTotalbudget(totalbudget:number){
+    this.budget = this.votingService.totalbudget = +totalbudget;
+  }
+
+  setOptionsValue(optionId: string,price:number) {
+      this.votingService.setOptionPrice({id: optionId, price: +price});
+      console.log(this.votingService.optionsList);
+    this.validateOptionValues();
+  }
+
+  validateOptionValues(){
+    this.showNext = false;
+    var list = this.options.filter(item => item.price <= this.budget && item.price > 0);
+    if(list.length === this.options.length){
+      this.showNext = true;
+    }
+  }
+
   ngOnInit() {
     this.options = [];
+    this.showNext = false
     this.votingService.resetVoting();
   }
 

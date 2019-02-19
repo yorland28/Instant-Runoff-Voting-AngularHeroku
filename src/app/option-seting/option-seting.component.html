@@ -5,8 +5,33 @@
   <label>Cantidad de optiones en la votación:
     <input type="number" #optionsNumber />
   </label>
-  <button routerLink="/voting" (click)="setOptions(optionsNumber.value)">
-    Continuar
+  <button (click)="setOptions(optionsNumber.value)">
+    Aceptar
   </button>
+</div>
+
+<div *ngIf="options && options.length > 1">
+  <div>
+    <p>Ingrese el presupuesto total:</p>
+    <input type="number" #totalbudget (change)="setTotalbudget(totalbudget.value)"/>
+      <span *ngIf="totalbudget.value < 1 && totalbudget.value!='' ">El valor debe ser mayor a cero (0)</span>
+  </div>
+
+  <div *ngIf="options && options.length > 1 && budget > 0">
+    <p>Ingrese el presupuesto por proyecto</p>
+    <div *ngFor="let option of options">
+      <div>
+        <label>{{option.id}}
+          <input type="number" #price (change)="setOptionsValue(option.id, price.value)"/>
+        </label>
+        <span *ngIf="price.value > budget ">El valor debe ser menor a {{budget}}</span>
+        <span *ngIf="price.value < 1 && price.value != ''">El valor debe ser mayor a cero (0)</span>
+      </div>
+    </div>
+    <button routerLink="/voting" [disabled]="!showNext">
+      Continuar
+    </button>
+  </div>
 
 </div>
+
