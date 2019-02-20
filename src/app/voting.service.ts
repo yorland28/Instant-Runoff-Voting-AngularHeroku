@@ -71,13 +71,11 @@ export class VotingService {
   }
 
   processResult(list : string [],major,minor) : boolean{
-    var winOption = [];
     this.roundCount ++;
-    this.rounds.push({round:this.roundCount,result:list});
+    this.rounds.push({round:this.roundCount,result:list,theWinner:"",totalbudget:""});
       if((major.count > this.votesCount/2) || major.count === minor.count || major.count <1){
-        winOption = major.option;
+        this.processWinner(major.option,list);
         console.log(this.rounds);
-        this.restTotalbudget(winOption);
         return true;
       }
       else if (minor && minor.option){
@@ -90,8 +88,9 @@ export class VotingService {
       }
   }
 
-  restTotalbudget(winVote){
-
+  processWinner(winOption,list){
+    this.totalbudget = +this.totalbudget - +winOption.price;
+    this.rounds[this.roundCount - 1] = {theWinner:winOption,totalbudget:this.totalbudget};
   }
 
   constructor() { }

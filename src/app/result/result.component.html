@@ -5,13 +5,23 @@
 <div>Votos totales: {{totalVotes}}</div>
 
 <div *ngFor="let round of roundsResult">
-  <p>{{round.round}}</p>
+  <p> Vuelta {{round.round}}</p>
   <div *ngFor="let oneResult of round.result">
     <div>{{oneResult.option.id}} --> {{oneResult.voteCount}}</div>
   </div>
 </div>
 
-<a routerLink="/seting">
-  Nueva Dinamica
-</a>
+<div>
+  <p>El ganador es la opción: {{thewinner}}</p>
+</div>
 
+<div>
+  <p>El presupuesto restante es: {{totalbudget}}</p>
+</div>
+
+
+<div>
+  <a routerLink="/seting">
+    Nueva Dinamica
+  </a>
+</div>

@@ -20,6 +20,7 @@ export class OptionSetingComponent implements OnInit {
 
   setTotalbudget(totalbudget:number){
     this.budget = this.votingService.totalbudget = +totalbudget;
+    this.validateOptionValues();
   }
 
   setOptionsValue(optionId: string,price:number) {
