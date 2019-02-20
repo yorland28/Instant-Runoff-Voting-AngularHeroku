@@ -90,8 +90,9 @@ export class VotingService {
 
   processWinner(winOption,list){
     this.totalbudget = +this.totalbudget - +winOption.price;
-    this.rounds[this.roundCount - 1] = {theWinner:winOption,totalbudget:this.totalbudget};
-  }
+    this.rounds[this.roundCount - 1].theWinner = winOption;
+    this.rounds[this.roundCount - 1].totalbudget = this.totalbudget;
+}
 
   constructor() { }
 }

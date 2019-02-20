@@ -9,16 +9,16 @@
   <div *ngFor="let oneResult of round.result">
     <div>{{oneResult.option.id}} --> {{oneResult.voteCount}}</div>
   </div>
-</div>
 
-<div>
-  <p>El ganador es la opción: {{thewinner}}</p>
-</div>
 
-<div>
-  <p>El presupuesto restante es: {{totalbudget}}</p>
-</div>
+  <div *ngIf="round.theWinner && round.theWinner!=''">
+    <p>El ganador es la opción: {{thewinner}}</p>
+  </div>
 
+  <div *ngIf="round.totalbudget && round.totalbudget != ''">
+    <p>El presupuesto restante es: {{totalbudget}}</p>
+  </div>
+</div>
 
 <div>
   <a routerLink="/seting">
