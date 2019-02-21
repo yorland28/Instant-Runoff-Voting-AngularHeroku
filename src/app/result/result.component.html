@@ -12,12 +12,20 @@
 
 
   <div *ngIf="round.theWinner && round.theWinner!=''">
-    <p>El ganador es la opción: {{thewinner}}</p>
+    <p>El ganador es la opción: {{round.theWinner.id}}</p>
+
+    <div *ngIf="round.totalbudget && round.totalbudget != ''">
+      <p>El presupuesto restante: $ {{round.totalbudget}}</p>
+    </div>
+      <div *ngIf="!showNewWinner">
+        <p>No quedan opciones para el presupuesto restante</p>
+      </div>
   </div>
 
-  <div *ngIf="round.totalbudget && round.totalbudget != ''">
-    <p>El presupuesto restante es: {{totalbudget}}</p>
-  </div>
+</div>
+
+<div *ngIf="showNewWinner">
+  <a>Buscar nuevo ganador</a>
 </div>
 
 <div>

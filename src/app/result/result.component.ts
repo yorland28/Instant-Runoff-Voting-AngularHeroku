@@ -10,6 +10,7 @@ export class ResultComponent implements OnInit {
   public roundsResult = [];
   public totalVotes = 0
   public totalbudget;
+  public showNewWinner;
 
   constructor(private votingService: VotingService) { }
 
@@ -17,6 +18,7 @@ export class ResultComponent implements OnInit {
     this.roundsResult = this.votingService.rounds;
     this.totalVotes = this.votingService.votesCount;
     this.totalbudget = this.votingService.totalbudget;
+    this.showNewWinner = this.votingService.showNewWinner;
   }
 
 }

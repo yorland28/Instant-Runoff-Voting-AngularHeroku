@@ -13,6 +13,7 @@ export class VotingService {
   public rounds = [];
   roundCount = 0;
   public totalbudget = 0;
+  public showNewWinner = false;
 
   resetVoting(){
     this.votesSelected = [];
@@ -45,6 +46,8 @@ export class VotingService {
 
   setVotingResult(){
     var end = false;
+    this.rounds = [];
+    this.roundCount = 0;
     while (!end) {
       var result = [];
       var major={count:0,option:""};
@@ -73,26 +76,50 @@ export class VotingService {
   processResult(list : string [],major,minor) : boolean{
     this.roundCount ++;
     this.rounds.push({round:this.roundCount,result:list,theWinner:"",totalbudget:""});
+      //When there is a winner
       if((major.count > this.votesCount/2) || major.count === minor.count || major.count <1){
-        this.processWinner(major.option,list);
+        this.processWinner(major.option);
         console.log(this.rounds);
         return true;
       }
       else if (minor && minor.option){
-        for (let voteSelected of this.votesSelected) {
-          if (voteSelected.votes[0] === minor.option.id) {
-            voteSelected.votes = voteSelected.votes.filter(item => item !== minor.option.id);
-          }
-        }
+        this.deleteOption(minor.option);
         return false;
       }
   }
 
-  processWinner(winOption,list){
-    this.totalbudget = +this.totalbudget - +winOption.price;
-    this.rounds[this.roundCount - 1].theWinner = winOption;
+  processWinner(winnerOption){
+    this.showNewWinner = false;
+    this.totalbudget = +this.totalbudget - +winnerOption.price;
+    this.rounds[this.roundCount - 1].theWinner = winnerOption;
     this.rounds[this.roundCount - 1].totalbudget = this.totalbudget;
-}
+    this.optionsList = this.optionsList.filter(item => item.id != winnerOption.id);
+    this.deleteOption(winnerOption);
+    if(this.optionsList.filter(item => item.price <= this.totalbudget).length > 0){
+      this.showNewWinner = true;
+    }
+  }
+
+  processNewWinner(){
+    this.showNewWinner = false;
+    var overratedOptions = this.optionsList.filter(item => item.price > this.totalbudget);
+    if(overratedOptions.length > 0){
+      for(let option of overratedOptions){
+        this.deleteOption(option);
+      }
+    }
+    this.setVotingResult();
+  }
+
+  deleteOption(optionTodelete){
+    for (let voteSelected of this.votesSelected) {
+      if (voteSelected.votes[0] === optionTodelete.id) {
+        voteSelected.votes = voteSelected.votes.filter(item => item !== optionTodelete.id);
+      }
+    }
+  }
+
+
 
   constructor() { }
 }
