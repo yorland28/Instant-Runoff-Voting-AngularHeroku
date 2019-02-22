@@ -21,6 +21,7 @@ export class VotingService {
     this.votesCount = 0;
     this.rounds = [];
     this.roundCount = 0;
+    this.winnersRound = [];
   }
 
   setOptions (optionNumber : number) {
