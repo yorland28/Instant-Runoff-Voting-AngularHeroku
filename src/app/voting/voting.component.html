@@ -1,8 +1,8 @@
-<div>
+<div class="block">
   <p>Eliga su orden de opciones</p>
     <div *ngFor="let option of options; index as i">
         <a *ngIf="!option.selected" id="option.id" (click)="saveVote(option)">
-          {{option.id}} --> {{option.price}}</a>
+          {{option.id}} -->  ($ {{option.price}})</a>
     </div>
     <p>-----</p>
     <div *ngFor="let vote of votes">

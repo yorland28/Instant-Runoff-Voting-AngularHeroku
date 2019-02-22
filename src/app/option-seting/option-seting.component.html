@@ -1,37 +1,26 @@
-<div style="text-align:center">
+<div>
   Configuración de votación
 </div>
 <div>
-  <label>Cantidad de optiones en la votación:
-    <input type="number" #optionsNumber />
-  </label>
-  <button (click)="setOptions(optionsNumber.value)">
-    Aceptar
-  </button>
+  <label>Optiones en la votación:</label>
+    <input type="number" #optionsNumber (change)="setOptions(optionsNumber.value)"/>
+  <span class="error"  *ngIf="optionsNumber.value < 1 && optionsNumber.value != ''">El valor debe ser mayor a cero (0)</span>
 </div>
 
-<div *ngIf="options && options.length > 1">
-  <div>
-    <p>Ingrese el presupuesto total:</p>
-    <input type="number" #totalbudget (change)="setTotalbudget(totalbudget.value)"/>
-      <span *ngIf="totalbudget.value < 1 && totalbudget.value!='' ">El valor debe ser mayor a cero (0)</span>
-  </div>
+<div>
+    <label>Ingrese el presupuesto total:</label>
+    <input [disabled]="!options && !options.length > 1" type="number" #totalbudget (change)="setTotalbudget(totalbudget.value)"/>
+      <span class="error" *ngIf="(totalbudget.value < 1 && totalbudget.value!='') || (totalbudget.value=='' && options.length > 1)">El valor debe ser mayor a cero (0)</span>
 
-  <div *ngIf="options && options.length > 1 && budget > 0">
-    <p>Ingrese el presupuesto por proyecto</p>
+    <p *ngIf="options && options.length > 1">Ingrese el presupuesto por proyecto</p>
     <div *ngFor="let option of options">
-      <div>
-        <label>{{option.id}}
-          <input type="number" #price (change)="setOptionsValue(option.id, price.value)"/>
-        </label>
-        <span *ngIf="price.value > budget ">El valor debe ser menor a {{budget}}</span>
-        <span *ngIf="price.value < 1 && price.value != ''">El valor debe ser mayor a cero (0)</span>
-      </div>
+      <label>{{option.id}}</label>
+          <input [disabled]="!options || !options.length > 1 || !budget > 0 " type="number" #price (change)="setOptionsValue(option.id, price.value)"/>
+        <span class="error" *ngIf="price.value > budget ">El valor debe ser menor a {{budget}}</span>
+        <span class="error" *ngIf="price.value < 1 && price.value != ''">El valor debe ser mayor a cero (0)</span>
     </div>
     <button routerLink="/voting" [disabled]="!showNext">
       Continuar
     </button>
-  </div>
 
 </div>
-
