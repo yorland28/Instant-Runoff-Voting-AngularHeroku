@@ -2,30 +2,25 @@
   Resultado
 </p>
 
-<div>Votos totales: {{totalVotes}}</div>
-
-<div *ngFor="let round of roundsResult">
-  <p> Vuelta {{round.round}}</p>
-  <div *ngFor="let oneResult of round.result">
-    <div>{{oneResult.option.id}} --> {{oneResult.voteCount}}</div>
-  </div>
-
-
-  <div *ngIf="round.theWinner && round.theWinner!=''">
-    <p>El ganador es la opción: {{round.theWinner.id}}</p>
-
-    <div *ngIf="round.totalbudget && round.totalbudget != ''">
-      <p>El presupuesto restante: $ {{round.totalbudget}}</p>
+<p>Votos totales: {{totalVotes}}</p>
+<p>------------</p>
+<div *ngFor="let winnerR of winnersRound">
+  <p>Busqueda de ganador</p>
+  <div *ngFor="let round of winnerR">
+    <p> Vuelta {{round.round}}</p>
+    <div *ngFor="let oneResult of round.result">
+      <div>{{oneResult.option.id}} --> {{oneResult.voteCount}} votos</div>
     </div>
-      <div *ngIf="!showNewWinner">
-        <p>No quedan opciones para el presupuesto restante</p>
+
+    <div *ngIf="round.theWinner && round.theWinner!=''">
+      <p>El ganador es la opción: {{round.theWinner.id}}  (${{round.theWinner.price}})</p>
+
+      <div *ngIf="round.totalbudget && round.totalbudget != ''">
+        <p>El presupuesto restante: $ {{round.totalbudget}}</p>
       </div>
+    </div>
   </div>
-
-</div>
-
-<div *ngIf="showNewWinner">
-  <a>Buscar nuevo ganador</a>
+  <p>---------</p>
 </div>
 
 <div>

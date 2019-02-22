@@ -14,6 +14,7 @@ export class VotingService {
   roundCount = 0;
   public totalbudget = 0;
   public showNewWinner = false;
+  public winnersRound = [];
 
   resetVoting(){
     this.votesSelected = [];
@@ -60,7 +61,6 @@ export class VotingService {
           }
         }
         result.push({option: option, voteCount: count});
-        console.log(option.id, count);
         if (count > major.count) {
           major = {count: count, option: option};
         }
@@ -70,7 +70,6 @@ export class VotingService {
       }
       end = this.processResult(result, major, minor);
     }
-
   }
 
   processResult(list : string [],major,minor) : boolean{
@@ -79,7 +78,6 @@ export class VotingService {
       //When there is a winner
       if((major.count > this.votesCount/2) || major.count === minor.count || major.count <1){
         this.processWinner(major.option);
-        console.log(this.rounds);
         return true;
       }
       else if (minor && minor.option){
@@ -92,11 +90,16 @@ export class VotingService {
     this.showNewWinner = false;
     this.totalbudget = +this.totalbudget - +winnerOption.price;
     this.rounds[this.roundCount - 1].theWinner = winnerOption;
-    this.rounds[this.roundCount - 1].totalbudget = this.totalbudget;
+    this.rounds[this.roundCount - 1].totalbudget = this.totalbudget ;
+
+    this.winnersRound.push(this.rounds);
+    console.log(this.winnersRound);
+
     this.optionsList = this.optionsList.filter(item => item.id != winnerOption.id);
     this.deleteOption(winnerOption);
     if(this.optionsList.filter(item => item.price <= this.totalbudget).length > 0){
       this.showNewWinner = true;
+      this.processNewWinner();
     }
   }
 
