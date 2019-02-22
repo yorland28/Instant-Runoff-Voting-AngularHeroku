@@ -9,13 +9,13 @@
 
 <div>
     <label>Ingrese el presupuesto total:</label>
-    <input [disabled]="!options && !options.length > 1" type="number" #totalbudget (change)="setTotalbudget(totalbudget.value)"/>
+    <input [disabled]="!options && options.length < 1" type="number" #totalbudget (change)="setTotalbudget(totalbudget.value)"/>
       <span class="error" *ngIf="(totalbudget.value < 1 && totalbudget.value!='') || (totalbudget.value=='' && options.length > 1)">El valor debe ser mayor a cero (0)</span>
 
     <p *ngIf="options && options.length > 1">Ingrese el presupuesto por proyecto</p>
     <div *ngFor="let option of options">
       <label>{{option.id}}</label>
-          <input [disabled]="!options || !options.length > 1 || !budget > 0 " type="number" #price (change)="setOptionsValue(option.id, price.value)"/>
+          <input [disabled]="!options || options.length < 1 || !budget > 0 " type="number" #price (change)="setOptionsValue(option.id, price.value)"/>
         <span class="error" *ngIf="price.value > budget ">El valor debe ser menor a {{budget}}</span>
         <span class="error" *ngIf="price.value < 1 && price.value != ''">El valor debe ser mayor a cero (0)</span>
     </div>
